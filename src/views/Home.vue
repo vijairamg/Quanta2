@@ -7,7 +7,7 @@
         The world is yours
       </h2> -->
       <h2>
-        <router-link to='/signup' class="button is-danger is-size-5">Sign Up</router-link>
+        <router-link to='/signup' class="button is-danger is-size-5 is-family-primary	">Sign Up</router-link>
       </h2>
     </div>
   </div>
@@ -27,9 +27,7 @@ export default {
 
 <style>
 
-h2{
-  text-align: center;
-}
+
 </style>
 
 
