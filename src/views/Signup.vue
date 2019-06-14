@@ -11,7 +11,7 @@
             </b-field>
 
             <b-field label="Email">
-                <b-input type="email" maxlength="30" />
+                <b-input v-model="email" type="email" maxlength="30" />
             </b-field>
 
             <b-field label="Username">
@@ -19,10 +19,10 @@
             </b-field>
 
             <b-field label="Password">
-                <b-input type="password" maxlength="30"></b-input>
+                <b-input v-model="password" type="password" maxlength="30"></b-input>
             </b-field>
 
-            <b-button tag="router-link" to="/dashboard" type="is-info" size="is-size-5">
+            <b-button @click="createUser" :loading="lstate" type="is-info" size="is-size-5">
                 Signup
             </b-button>
         </div>
@@ -32,11 +32,38 @@
 
 <script>
 import Logo from '../components/Logo.vue'
+import {
+    auth
+} from '../firebaseConfig'
 
 export default {
     name: 'signup',
+    data: function () {
+        return {
+            email: "",
+            password: "",
+            lstate: false
+        }
+    },
     components: {
         Logo
+    },
+    methods: {
+        createUser: function () {
+            this.lstate = true
+            auth.createUserWithEmailAndPassword(this.email, this.password).then(() => {
+                this.$toast.open({
+                    message: "Account created",
+                    type: "is-success"
+                })
+                this.lstate = false
+            }).catch(function (error) {
+                console.log(error) // Handle Errors here.
+                this.lstate = false
+            })
+
+        }
+
     }
 }
 </script>
