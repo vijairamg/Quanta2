@@ -6,24 +6,17 @@
     <div class="action">
         <logo />
         <div id="form">
-            <b-field label="Name">
-                <b-input />
-            </b-field>
 
             <b-field label="Email">
                 <b-input v-model="email" type="email" maxlength="30" />
-            </b-field>
-
-            <b-field label="Username">
-                <b-input maxlength="30"></b-input>
             </b-field>
 
             <b-field label="Password">
                 <b-input v-model="password" type="password" maxlength="30"></b-input>
             </b-field>
 
-            <b-button @click="createUser" :loading="lstate" type="is-info" size="is-size-5">
-                Signup
+            <b-button @click="authenticate" :loading="lstate" type="is-info" size="is-size-5">
+                Login
             </b-button>
         </div>
     </div>
@@ -49,22 +42,27 @@ export default {
         Logo
     },
     methods: {
-        createUser: function () {
+        authenticate: function () {
             this.lstate = true
-            auth.createUserWithEmailAndPassword(this.email, this.password).then(() => {
+            auth.signInWithEmailAndPassword(this.email, this.password).then(() => {
                 this.$toast.open({
-                    message: "Account created",
+                    message: "Logged in",
                     type: "is-success"
                 })
                 this.lstate = false
-                this.$router.push('login')
-            }).catch(function (error) {
-                console.log(error) // Handle Errors here.
-                this.lstate = false
+                this.$router.push('dashboard')
+            }).catch((error) => {
+                this.loginError(error) // Handle Errors here.                
             })
 
+        },
+        loginError: function (error) {
+            this.lstate = false
+            this.$toast.open({
+                message: error.message,
+                type: "is-danger"
+            })
         }
-
     }
 }
 </script>
@@ -84,7 +82,7 @@ export default {
 }
 
 #form {
-    padding: 0em 10em;
+    padding: 0em 15em;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -94,7 +92,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-image: url("../assets/signup_img.jpg");
+    background-image: url("../assets/login_img.jpg");
     background-position: center;
     padding: 0em 0em 0em 0em;
     background-repeat: no-repeat;
