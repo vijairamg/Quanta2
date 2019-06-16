@@ -8,11 +8,11 @@
         <div id="form">
 
             <b-field label="Email">
-                <b-input v-model="email" type="email" maxlength="30" />
+                <b-input v-model="email" type="email" icon-pack="fas" icon="envelope" />
             </b-field>
 
             <b-field label="Password">
-                <b-input v-model="password" type="password" maxlength="30"></b-input>
+                <b-input v-model="password" type="password" icon-pack="fas" icon="lock" password-reveal></b-input>
             </b-field>
 
             <b-button @click="authenticate" :loading="lstate" type="is-info" size="is-size-5">
@@ -29,6 +29,7 @@ import {
     auth
 } from '../firebaseConfig'
 
+import {getUserData} from '../user.js'
 export default {
     name: 'signup',
     data: function () {
@@ -51,6 +52,7 @@ export default {
                 })
                 this.lstate = false
                 this.$router.push('dashboard')
+                getUserData(this.email)
             }).catch((error) => {
                 this.loginError(error) // Handle Errors here.                
             })

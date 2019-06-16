@@ -32,6 +32,7 @@
 
 <script>
 import Logo from '../components/Logo.vue'
+import {createUserData} from '../user.js'
 import {
     auth
 } from '../firebaseConfig'
@@ -97,6 +98,7 @@ export default {
             this.lstate = true
 
             auth.createUserWithEmailAndPassword(this.email, this.password).then(() => {
+                createUserData(this.name,this.username,this.email)
                 this.$toast.open({
                     message: "Account created",
                     type: "is-success"
