@@ -17,10 +17,19 @@
 
             <div class="control">
                 <b-taglist attached>
+                    <b-tag type="is-dark is-large">Name</b-tag>
+                    <b-tag type="is-info is-large">{{name}}</b-tag>
+                </b-taglist>
+            </div>
+
+            <div class="control">
+                <b-taglist attached>
                     <b-tag type="is-dark is-large">Friends</b-tag>
                     <b-tag type="is-info is-large">{{friends}}</b-tag>
                 </b-taglist>
             </div>
+
+            
         </b-field>
         </div>
 </template>
@@ -31,13 +40,16 @@ export default {
     name:'Info',
     computed:{
         username:function(){
-            return JSON.parse(sessionStorage.getItem("userdata")).username;
+            return sessionStorage.getItem("username")
         },
         email:function(){
-            return JSON.parse(sessionStorage.getItem("userdata")).email;
+            return sessionStorage.getItem("email");
         },
         friends:function(){
-            return JSON.parse(sessionStorage.getItem("userdata")).friends.length;
+            return sessionStorage.getItem("friends").length;
+        },
+        name:function(){
+            return sessionStorage.getItem("name");
         }
     }
 }

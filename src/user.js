@@ -33,7 +33,13 @@ export const createChatkitUser = async function (username, name) {
 export const getUserData = async function (email) {
   try {
     const snapshot = await axios.get('https://us-central1-quanta2.cloudfunctions.net/webApi/api/user/' + email)
-    sessionStorage.setItem("userdata", JSON.stringify(snapshot.data))
+    //sessionStorage.setItem("userdata", JSON.stringify(snapshot.data))
+    // eslint-disable-next-line
+    let {lemail , friends , name , username} = snapshot.data
+    sessionStorage.setItem("email",email)
+    sessionStorage.setItem("friends",friends)
+    sessionStorage.setItem("name",name)
+    sessionStorage.setItem("username",username)
 
   } catch (error) {
     console.log(error)

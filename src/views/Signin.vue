@@ -54,8 +54,7 @@ export default {
                 
                 
                 await getUserData(this.email)
-                console.log(JSON.parse(sessionStorage.getItem("userdata")).username)
-                await getChatkitUser(JSON.parse(sessionStorage.getItem("userdata")).username)
+                await getChatkitUser(sessionStorage.getItem("username"))
                 this.lstate = false
                 this.$toast.open({
                     message: "Logged in",
