@@ -29,7 +29,10 @@ import {
     auth
 } from '../firebaseConfig'
 
-import {getUserData , getChatkitUser} from '../user.js'
+import {
+    getUserData,
+    getChatkitUser
+} from '../user.js'
 
 export default {
     name: 'signup',
@@ -46,19 +49,21 @@ export default {
     methods: {
         authenticate: async function () {
             this.lstate = true
-             try{
-            await auth.signInWithEmailAndPassword(this.email, this.password)
+            try {
+                await auth.signInWithEmailAndPassword(this.email, this.password)
+                
+                
+                await getUserData(this.email)
+                console.log(JSON.parse(sessionStorage.getItem("userdata")).username)
+                await getChatkitUser(JSON.parse(sessionStorage.getItem("userdata")).username)
+                this.lstate = false
                 this.$toast.open({
                     message: "Logged in",
                     type: "is-success"
                 })
-                this.lstate = false
                 this.$router.push('dashboard')
-               await getUserData(this.email)
-               console.log(JSON.parse(sessionStorage.getItem("userdata")).username)
-               await getChatkitUser(JSON.parse(sessionStorage.getItem("userdata")).username)
-              //          getChatkitUser("vijairam20")
-            }catch(error){
+
+            } catch (error) {
                 this.loginError(error) // Handle Errors here.                
             }
 

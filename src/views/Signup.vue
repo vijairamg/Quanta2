@@ -111,8 +111,8 @@ export default {
                 this.lstate = false
             })
 
-        }
-
+        },
+        
     }
 }
 </script>
