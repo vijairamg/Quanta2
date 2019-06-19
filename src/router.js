@@ -27,6 +27,17 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: () => import('./views/Signin.vue')
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: () => import('./views/Dashboard.vue'),
+      children:[
+        {
+          path:'settings',
+          component :() => import('./views/Settings.vue')
+        },
+      ]
     }
   ]
 })
