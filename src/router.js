@@ -37,7 +37,11 @@ export default new Router({
           path:'settings',
           component :() => import('./views/Settings.vue')
         },
-      ]
+        {
+          path:'friends',
+          component :() => import('./views/Friends.vue')
+        },
+      ],
     }
   ]
 })

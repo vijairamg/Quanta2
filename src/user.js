@@ -33,13 +33,12 @@ export const createChatkitUser = async function (username, name) {
 export const getUserData = async function (email) {
   try {
     const snapshot = await axios.get('https://us-central1-quanta2.cloudfunctions.net/webApi/api/user/' + email)
-    //sessionStorage.setItem("userdata", JSON.stringify(snapshot.data))
-    // eslint-disable-next-line
-    let {lemail , friends , name , username} = snapshot.data
+    const user = snapshot.data
+  
     sessionStorage.setItem("email",email)
-    sessionStorage.setItem("friends",friends)
-    sessionStorage.setItem("name",name)
-    sessionStorage.setItem("username",username)
+    sessionStorage.setItem("friends",JSON.stringify(user.friends))
+    sessionStorage.setItem("name",user.name)
+    sessionStorage.setItem("username",user.username)
 
   } catch (error) {
     console.log(error)
@@ -50,6 +49,26 @@ export const getChatkitUser = async function (username) {
   try {
     const user = await axios.get(chatkitURL+`/${username}`)
     sessionStorage.setItem("chatkitUser", JSON.stringify(user))
+  } catch (error) {
+    console.log(error.message)
+  }
+  
+}
+
+export const isUser = async function (username) {
+  try {
+    let answer = await axios.get('https://us-central1-quanta2.cloudfunctions.net/webApi/api/users'+`/${username}/${sessionStorage.getItem("username")}`)
+    console.log(answer)
+    answer = answer.data.message 
+    if(answer === 'user does not exist'){
+      return {flag:false , error:'User does not exist'} ;
+    }else if(answer === 'user is already a friend'){
+      return {flag:false , error:'User is already a friend'}
+    }
+    else{
+      sessionStorage.setItem("tfriend",JSON.stringify(answer))
+      return {flag:true,error:""} 
+    }
   } catch (error) {
     console.log(error.message)
   }

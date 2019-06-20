@@ -46,7 +46,7 @@ export default {
             return sessionStorage.getItem("email");
         },
         friends:function(){
-            return sessionStorage.getItem("friends").length;
+            return JSON.parse(sessionStorage.getItem("friends")).length;
         },
         name:function(){
             return sessionStorage.getItem("name");
