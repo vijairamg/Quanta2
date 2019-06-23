@@ -12,6 +12,7 @@
     "buefy": "^0.7.7",
     "core-js": "^2.6.5",
     "firebase": "^6.2.0",
+    "graphql-request": "^1.8.2",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3"
   },

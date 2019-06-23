@@ -32,10 +32,10 @@
 
 <script>
 import Logo from '../components/Logo.vue'
-import {createUserData , createChatkitUser} from '../user.js'
 import {
     auth
 } from '../firebaseConfig'
+import {createUser} from '../server.js'
 
 export default {
     name: 'signup',
@@ -97,9 +97,10 @@ export default {
         createUser: function () {
             this.lstate = true
 
+            
             auth.createUserWithEmailAndPassword(this.email, this.password).then(() => {
-                createUserData(this.name,this.username,this.email)
-                createChatkitUser(this.username,this.name)
+                createUser(this.username,this.name,this.email)
+               
                 this.$toast.open({
                     message: "Account created",
                     type: "is-success"
